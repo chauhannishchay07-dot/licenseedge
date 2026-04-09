@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <meta name="description" content="Book your free 30-minute subscription audit with LicenseEdge. Available to SMBs in the US, Australia, Canada and UK. No commitment, no credit card."/>
   <title>Book Free Audit — LicenseEdge</title>
   <link rel="stylesheet" href="style.css"/>
@@ -107,71 +110,75 @@
             <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.04em;color:var(--white);margin-bottom:8px;">Book Your Free Audit</h3>
             <p style="font-size:0.88rem;margin-bottom:32px;">Fill in your details and we'll reach out within 24 hours to confirm your time.</p>
 
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="f-name">Your Name</label>
-                <input type="text" id="f-name" placeholder="John Smith" required/>
-              </div>
-              <div class="form-field">
-                <label for="f-email">Work Email</label>
-                <input type="email" id="f-email" placeholder="john@company.com" required/>
-              </div>
-            </div>
+            <form id="contact-form" novalidate>
+              <div id="form-error" style="display:none;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.4);border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:0.85rem;color:#f87171;"></div>
 
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="f-company">Company Name</label>
-                <input type="text" id="f-company" placeholder="Acme Inc."/>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="f-name">Your Name</label>
+                  <input type="text" id="f-name" name="name" placeholder="John Smith" required/>
+                </div>
+                <div class="form-field">
+                  <label for="f-email">Work Email</label>
+                  <input type="email" id="f-email" name="email" placeholder="john@company.com" required/>
+                </div>
               </div>
-              <div class="form-field">
-                <label for="f-country">Your Country</label>
-                <select id="f-country">
-                  <option value="">Select country</option>
-                  <option>🇺🇸 United States</option>
-                  <option>🇦🇺 Australia</option>
-                  <option>🇨🇦 Canada</option>
-                  <option>🇬🇧 United Kingdom</option>
-                  <option>Other</option>
-                </select>
-              </div>
-            </div>
 
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="f-size">Team Size</label>
-                <select id="f-size">
-                  <option value="">Select range</option>
-                  <option>1–10 employees</option>
-                  <option>11–25 employees</option>
-                  <option>26–50 employees</option>
-                  <option>51–100 employees</option>
-                  <option>100–200 employees</option>
-                  <option>200+ employees</option>
-                </select>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="f-company">Company Name</label>
+                  <input type="text" id="f-company" name="company" placeholder="Acme Inc."/>
+                </div>
+                <div class="form-field">
+                  <label for="f-country">Your Country</label>
+                  <select id="f-country" name="country">
+                    <option value="">Select country</option>
+                    <option value="United States">🇺🇸 United States</option>
+                    <option value="Australia">🇦🇺 Australia</option>
+                    <option value="Canada">🇨🇦 Canada</option>
+                    <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-field">
-                <label for="f-spend">Monthly Software Spend</label>
-                <select id="f-spend">
-                  <option value="">Approx. range</option>
-                  <option>Under $1,000/month</option>
-                  <option>$1,000 – $3,000/month</option>
-                  <option>$3,000 – $8,000/month</option>
-                  <option>$8,000 – $20,000/month</option>
-                  <option>$20,000+/month</option>
-                  <option>Not sure</option>
-                </select>
+
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="f-size">Team Size</label>
+                  <select id="f-size" name="team_size">
+                    <option value="">Select range</option>
+                    <option value="1-10">1–10 employees</option>
+                    <option value="11-25">11–25 employees</option>
+                    <option value="26-50">26–50 employees</option>
+                    <option value="51-100">51–100 employees</option>
+                    <option value="100-200">100–200 employees</option>
+                    <option value="200+">200+ employees</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="f-spend">Monthly Software Spend</label>
+                  <select id="f-spend" name="monthly_spend">
+                    <option value="">Approx. range</option>
+                    <option value="Under $1,000/month">Under $1,000/month</option>
+                    <option value="$1,000-$3,000/month">$1,000 – $3,000/month</option>
+                    <option value="$3,000-$8,000/month">$3,000 – $8,000/month</option>
+                    <option value="$8,000-$20,000/month">$8,000 – $20,000/month</option>
+                    <option value="$20,000+/month">$20,000+/month</option>
+                    <option value="Not sure">Not sure</option>
+                  </select>
+                </div>
               </div>
-            </div>
 
-            <div class="form-field">
-              <label for="f-msg">Anything we should know?</label>
-              <textarea id="f-msg" placeholder="Tell us about your current situation, specific tools causing headaches, or what you'd like to get out of the audit..."></textarea>
-            </div>
+              <div class="form-field">
+                <label for="f-msg">Anything we should know?</label>
+                <textarea id="f-msg" name="message" placeholder="Tell us about your current situation, specific tools causing headaches, or what you'd like to get out of the audit..."></textarea>
+              </div>
 
-            <button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;" onclick="submitForm(event)">
-              📅 Book My Free 30-Min Audit
-            </button>
-            <p style="font-size:0.78rem;color:var(--muted);margin-top:14px;text-align:center;">No credit card · No commitment · Response within 24 hours</p>
+              <button type="submit" id="submit-btn" class="btn btn-gold btn-lg" style="width:100%;justify-content:center;">
+                📅 Book My Free 30-Min Audit
+              </button>
+              <p style="font-size:0.78rem;color:var(--muted);margin-top:14px;text-align:center;">No credit card · No commitment · Response within 24 hours</p>
+            </form>
           </div>
 
           <div id="form-success">

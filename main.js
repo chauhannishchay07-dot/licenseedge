@@ -56,20 +56,76 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-/* ── Contact Form ──────────────────────────────────────── */
-function submitForm(e) {
-  e.preventDefault();
-  const name  = document.getElementById('f-name')?.value.trim();
-  const email = document.getElementById('f-email')?.value.trim();
-  if (!name || !email) {
-    alert('Please enter your name and email address.');
-    return;
-  }
-  const fields  = document.getElementById('form-fields');
-  const success = document.getElementById('form-success');
-  if (fields)  fields.style.display  = 'none';
-  if (success) success.style.display = 'block';
-}
+/* ── Contact Form — Formspree Integration ──────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name  = document.getElementById('f-name')?.value.trim();
+    const email = document.getElementById('f-email')?.value.trim();
+    const errorBox = document.getElementById('form-error');
+    const btn   = document.getElementById('submit-btn');
+
+    // Client-side validation
+    if (!name || !email) {
+      if (errorBox) {
+        errorBox.textContent = 'Please enter your name and email address.';
+        errorBox.style.display = 'block';
+      }
+      return;
+    }
+
+    // Hide previous errors, disable button
+    if (errorBox) errorBox.style.display = 'none';
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+    }
+
+    try {
+      const data = new FormData(form);
+      const response = await fetch('https://formspree.io/f/xqeybnjv', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        // Show success state
+        const fields  = document.getElementById('form-fields');
+        const success = document.getElementById('form-success');
+        if (fields)  fields.style.display  = 'none';
+        if (success) success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // Show server error message from Formspree
+        const json = await response.json().catch(() => ({}));
+        const msg  = (json.errors || []).map(err => err.message).join(' ') ||
+                     'Something went wrong. Please try again or email us directly.';
+        if (errorBox) {
+          errorBox.textContent = msg;
+          errorBox.style.display = 'block';
+        }
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '📅 Book My Free 30-Min Audit';
+        }
+      }
+    } catch (err) {
+      if (errorBox) {
+        errorBox.textContent = 'Network error — please check your connection and try again.';
+        errorBox.style.display = 'block';
+      }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '📅 Book My Free 30-Min Audit';
+      }
+    }
+  });
+});
 
 /* ── Scroll Animations (IntersectionObserver) ──────────── */
 document.addEventListener('DOMContentLoaded', () => {
